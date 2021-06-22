@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.MultiTypeAdapter
 import com.drakeet.multitype.sample.MenuBaseActivity
+import com.drakeet.multitype.sample.MultiListAdapter
 import com.drakeet.multitype.sample.R
 import com.drakeet.multitype.sample.common.Category
 import com.drakeet.multitype.sample.common.CategoryHolderInflater
@@ -37,7 +38,7 @@ class BilibiliActivity : MenuBaseActivity() {
   @VisibleForTesting
   internal lateinit var items: MutableList<Any>
   @VisibleForTesting
-  internal lateinit var adapter: MultiTypeAdapter
+  internal lateinit var adapter: MultiListAdapter
 
   private class JsonData {
 
@@ -69,7 +70,7 @@ class BilibiliActivity : MenuBaseActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_list)
 
-    adapter = MultiTypeAdapter()
+    adapter = MultiListAdapter()
     adapter.register(CategoryHolderInflater())
 
     adapter.register(PostViewBinder())
@@ -104,8 +105,9 @@ class BilibiliActivity : MenuBaseActivity() {
       items.add(data.postArray[1])
       items.add(PostList(data.postList))
     }
-    adapter.items = items
-    adapter.notifyDataSetChanged()
+//    adapter.items = items
+//    adapter.notifyDataSetChanged()
+    adapter.submitList(items)
   }
 
   override fun onCreateOptionsMenu(menu: Menu): Boolean {

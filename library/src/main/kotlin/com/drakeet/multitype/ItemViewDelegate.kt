@@ -29,6 +29,9 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 abstract class ItemViewDelegate<T, VH : ViewHolder> {
 
   @Suppress("PropertyName")
+  var _adapterDelegate: MultiTypeDelegate? = null
+
+  @Suppress("PropertyName")
   internal var _adapter: MultiTypeAdapter? = null
 
   /**
@@ -44,6 +47,17 @@ abstract class ItemViewDelegate<T, VH : ViewHolder> {
         )
       }
       return _adapter!!
+    }
+
+  val adapterDelegate: MultiTypeDelegate
+    get() {
+      if (_adapterDelegate == null) {
+        throw IllegalStateException(
+          "This $this has not been attached to MultiTypeAdapter yet. " +
+                  "You should not call the method before registering the delegate."
+        )
+      }
+      return _adapterDelegate!!
     }
 
   /**
